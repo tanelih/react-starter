@@ -1,7 +1,5 @@
-import { combineReducers } from 'redux'
-
-import createReducer    from 'client/utils/create-reducer'
-import createThunkStore from 'client/utils/create-thunk-store'
+import createStore   from 'client/utils/create-store'
+import createReducer from 'client/utils/create-reducer'
 
 import { FETCH_EXAMPLES,
          CREATE_EXAMPLE, } from 'client/views/example/actions'
@@ -13,10 +11,7 @@ const ExampleListReducer = createReducer([], {
   [CREATE_EXAMPLE]: (examples, action) => examples.concat([action.payload])
 })
 
-export function createStore(initialState = {}) {
-  let reducers = combineReducers({
-    route:    RouteReducer,
-    examples: ExampleListReducer
-  })
-  return createThunkStore(reducers, initialState)
-}
+export const initializeStore = createStore({
+  route:    RouteReducer,
+  examples: ExampleListReducer
+})
