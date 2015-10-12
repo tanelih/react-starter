@@ -9,12 +9,12 @@ import createRootComponent from 'client/utils/create-root-component'
  */
 import ExampleView from 'client/views/example'
 import {
-  initializeStore as initExampleViewStore
+  initializeStore as initExampleViewStore,
 } from 'client/views/example/state'
 
 import ExampleDetailsView from 'client/views/example-details'
 import {
-  initializeStore as initExampleDetailsViewStore
+  initializeStore as initExampleDetailsViewStore,
 } from 'client/views/example-details/state'
 
 /**
@@ -44,24 +44,24 @@ const app = express()
   .use('/dist', express.static('dist/client'))
 
   .get('/', (req, res) => {
-    let data = {
+    const data = {
       route: {
         path:   req.path,
-        params: req.params
+        params: req.params,
       },
-      examples: ['one', 'two']
+      examples: ['one', 'two'],
     }
     return res.status(200).send(template(
       render(ExampleView, initExampleViewStore(data)), data))
   })
 
   .get('/:example', (req, res) => {
-    let data = {
+    const data = {
       route: {
         path:   req.path,
-        params: req.params
+        params: req.params,
       },
-      example: { name: req.params.example }
+      example: { name: req.params.example },
     }
     return res.status(200).send(template(
       render(ExampleDetailsView, initExampleDetailsViewStore(data)), data))

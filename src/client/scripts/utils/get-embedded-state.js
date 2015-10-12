@@ -6,7 +6,7 @@
  * @return {object} - The initial state embedded in the DOM.
  */
 export default function getEmbeddedState() {
-  let dataElement = document.getElementById('initial-data')
+  const dataElement = document.getElementById('initial-data')
 
   return dataElement
     // make sure to remove the element from the DOM in order to not read it

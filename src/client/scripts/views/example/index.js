@@ -1,16 +1,18 @@
 import page                 from 'page'
 import React, { PropTypes } from 'react'
 
-import { fetchExamples,
-         createExample, } from 'client/views/example/actions'
+import {
+  fetchExamples,
+  createExample,
+} from 'client/views/example/actions'
 
 export default React.createClass({
   propTypes: {
-    state: PropTypes.object.isRequired
+    state: PropTypes.object.isRequired,
   },
 
   contextTypes: {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
   },
 
   componentDidMount() {
@@ -23,6 +25,13 @@ export default React.createClass({
 
   viewExampleDetails(example) {
     page(`/${example}`)
+  },
+
+  renderExamples() {
+    return this.props.state.examples.map((example, index) =>
+      <li key={index} onClick={() => this.viewExampleDetails(example)}>
+        {example}
+      </li>)
   },
 
   render() {
@@ -40,11 +49,4 @@ export default React.createClass({
       </section>
     )
   },
-
-  renderExamples() {
-    return this.props.state.examples.map((example, index) =>
-      <li key={index} onClick={() => this.viewExampleDetails(example)}>
-        {example}
-      </li>)
-  }
 })

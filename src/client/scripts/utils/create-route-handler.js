@@ -20,11 +20,11 @@ const MountPoint = document.getElementById('app')
  */
 export default function createRouteHandler(component, initStore) {
   return function handler(ctx) {
-    let store = initStore(Object.assign({ }, getEmbeddedState(), {
+    const store = initStore(Object.assign({ }, getEmbeddedState(), {
       route: {
         path:   ctx.path,
-        params: ctx.params
-      }
+        params: ctx.params,
+      },
     }))
     return ReactDOM.render(
       createRootComponent(component, store), MountPoint)

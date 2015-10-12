@@ -1,20 +1,26 @@
 import page                 from 'page'
 import React, { PropTypes } from 'react'
 
-import { fetchExample,
-         deleteExample, } from 'client/views/example-details/actions'
+import {
+  fetchExample,
+  deleteExample,
+} from 'client/views/example-details/actions'
 
 export default React.createClass({
-  contextTypes: {
-    dispatch: PropTypes.func.isRequired
+  propTypes: {
+    state: PropTypes.object.isRequired,
   },
 
-  shouldComponentUpdate(next) {
-    return next.state.example ? true : !!page('/')
+  contextTypes: {
+    dispatch: PropTypes.func.isRequired,
   },
 
   componentDidMount() {
     this.context.dispatch(fetchExample(this.props.state.route.params.example))
+  },
+
+  shouldComponentUpdate(next) {
+    return next.state.example ? true : !!page('/')
   },
 
   deleteExample() {
@@ -32,5 +38,5 @@ export default React.createClass({
         </div>
       </section>
     )
-  }
+  },
 })

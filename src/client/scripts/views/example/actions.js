@@ -7,5 +7,5 @@ export const fetchExamples = () => dispatch =>
 
 export const createExample = example => ({
   type:    CREATE_EXAMPLE,
-  payload: example
+  payload: example,
 })
