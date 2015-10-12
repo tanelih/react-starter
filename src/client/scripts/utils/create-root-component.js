@@ -13,7 +13,7 @@ import { createClass, createElement, PropTypes } from 'react'
  *
  * @return {ReactElement} The root component, ready to be rendered.
  */
-export default function(component, store) {
+export default function createRootComponent(component, store) {
   const rootComponent = createClass({
     childContextTypes: {
       dispatch: PropTypes.func.isRequired,

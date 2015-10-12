@@ -1,12 +1,14 @@
-import { applyMiddleware,
-         combineReducers,
-         createStore as createReduxStore } from 'redux'
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore as createReduxStore,
+} from 'redux'
 
-import thunk        from 'redux-thunk'
-import createLogger from 'redux-logger'
+import thunk  from 'redux-thunk'
+import logger from 'redux-logger'
 
 const createStoreWithMiddleware =
-  applyMiddleware(thunk, createLogger())(createReduxStore)
+  applyMiddleware(thunk, logger())(createReduxStore)
 
 /**
  * Basically a curried version of 'createStore'.
