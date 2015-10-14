@@ -10,5 +10,6 @@
         "VariableDeclarator": true
       }
     }],
+    "no-unused-vars": 0
   }
 }

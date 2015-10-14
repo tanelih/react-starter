@@ -8,7 +8,7 @@ import {
 import createStore from 'client/utils/create-store'
 
 // a simple "identity" reducer, which never "alters" the state
-const RouteReducer = route => route || { path: '/', params: {} }
+const RouteReducer = route => route || { path: '/', params: {} }
 
 // a basic reducer created using 'redux-actions' helpers
 const ExampleListReducer = handleActions({
