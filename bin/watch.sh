@@ -8,5 +8,4 @@ NODE_ENV='development' \
   watchify src/client/scripts/main.js -dv \
     -t babelify -t envify -o dist/client/app.js &
 
-NODE_ENV='development' \
-  nodemon --watch src/server --exec babel-node src/server/index.js
+NODE_ENV='development' nodemon --watch src/server index.js

@@ -26,6 +26,13 @@ export default function createRouteHandler(component, initStore) {
         params: ctx.params,
       },
     }))
+
+    // since react-redux's provider component doesn't allow us to specify a new
+    // store just like that, we'll need to remove the whole component tree in a
+    // very explicit way... this isn't really that bad however since we're
+    // changing the view here anyway
+    ReactDOM.unmountComponentAtNode(MountPoint)
+
     return ReactDOM.render(
       createRootComponent(component, store), MountPoint)
   }

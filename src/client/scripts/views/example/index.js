@@ -1,4 +1,5 @@
 import page                 from 'page'
+import { connect }          from 'react-redux'
 import React, { PropTypes } from 'react'
 
 import {
@@ -6,30 +7,29 @@ import {
   createExample,
 } from 'client/views/example/actions'
 
-export default React.createClass({
-  propTypes: {
-    state: PropTypes.object.isRequired,
-  },
+const connector = connect(
+  state => ({
+    examples: state.examples,
+  }),
+  dispatch => ({
+    onFetchExamples: () => dispatch(fetchExamples()),
+    onCreateExample: example => dispatch(createExample(example)),
+  }))
 
-  contextTypes: {
-    dispatch: PropTypes.func.isRequired,
+export default connector(React.createClass({
+  propTypes: {
+    examples:        PropTypes.array.isRequired,
+    onFetchExamples: PropTypes.func.isRequired,
+    onCreateExample: PropTypes.func.isRequired,
   },
 
   componentDidMount() {
-    this.context.dispatch(fetchExamples())
-  },
-
-  createExample() {
-    this.context.dispatch(createExample('example'))
-  },
-
-  viewExampleDetails(example) {
-    page(`/${example}`)
+    this.props.onFetchExamples()
   },
 
   renderExamples() {
-    return this.props.state.examples.map((example, index) =>
-      <li key={index} onClick={() => this.viewExampleDetails(example)}>
+    return this.props.examples.map((example, index) =>
+      <li key={index} onClick={() => page(`/${example}`)}>
         {example}
       </li>)
   },
@@ -41,7 +41,9 @@ export default React.createClass({
           <pre>{JSON.stringify(this.props, null, 2)}</pre>
         </div>
         <div className="app-state-operations">
-          <button onClick={this.createExample}>Create Example</button>
+          <button onClick={() => this.props.onCreateExample('new-example')}>
+            Create Example
+          </button>
         </div>
         <ul className="examples">
           {this.renderExamples()}
@@ -49,4 +51,4 @@ export default React.createClass({
       </section>
     )
   },
-})
+}))

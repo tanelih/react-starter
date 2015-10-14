@@ -9,13 +9,13 @@ import createRootComponent from 'client/utils/create-root-component'
  */
 import ExampleView from 'client/views/example'
 import {
-  initializeStore as initExampleViewStore,
-} from 'client/views/example/state'
+  initialize as initExampleViewStore,
+} from 'client/views/example/store'
 
 import ExampleDetailsView from 'client/views/example-details'
 import {
-  initializeStore as initExampleDetailsViewStore,
-} from 'client/views/example-details/state'
+  initialize as initExampleDetailsViewStore,
+} from 'client/views/example-details/store'
 
 /**
  * Template for the server rendered application.
@@ -40,7 +40,17 @@ const template = (html, data) => `
 const render = (component, store) =>
   ReactDOM.renderToString(createRootComponent(component, store))
 
-const app = express()
+/**
+ * @external {Application} http://expressjs.com/4x/api.html#app
+ */
+
+/**
+ * ExpressJS application configured and ready to listen for incoming connections
+ * from the outside world. Woo.
+ *
+ * @type {Application}
+ */
+export default express()
   .use('/dist', express.static('dist/client'))
 
   .get('/', (req, res) => {
@@ -66,5 +76,3 @@ const app = express()
     return res.status(200).send(template(
       render(ExampleDetailsView, initExampleDetailsViewStore(data)), data))
   })
-
-app.listen(8080)

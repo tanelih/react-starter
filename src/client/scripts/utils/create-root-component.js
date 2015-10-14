@@ -1,4 +1,5 @@
-import { createClass, createElement, PropTypes } from 'react'
+import React, { createElement } from 'react'
+import { Provider }             from 'react-redux'
 
 /**
  * Creates a renderable root component for the application, that is subscribed
@@ -14,25 +15,5 @@ import { createClass, createElement, PropTypes } from 'react'
  * @return {ReactElement} The root component, ready to be rendered.
  */
 export default function createRootComponent(component, store) {
-  const rootComponent = createClass({
-    childContextTypes: {
-      dispatch: PropTypes.func.isRequired,
-    },
-    getChildContext() {
-      return { dispatch: store.dispatch }
-    },
-    getInitialState() {
-      return store.getState()
-    },
-    componentDidMount() {
-      this.unsubscribe = store.subscribe(() => this.setState(store.getState()))
-    },
-    componentWillUnmount() {
-      this.unsubscribe()
-    },
-    render() {
-      return createElement(component, { state: this.state })
-    },
-  })
-  return createElement(rootComponent)
+  return <Provider store={store}>{createElement(component)}</Provider>
 }

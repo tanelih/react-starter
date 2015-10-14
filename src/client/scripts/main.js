@@ -10,13 +10,13 @@ import createRouteHandler from 'client/utils/create-route-handler'
 
 import ExampleView from 'client/views/example'
 import {
-  initializeStore as initExampleViewStore,
-} from 'client/views/example/state'
+  initialize as initExampleViewStore,
+} from 'client/views/example/store'
 
 import ExampleDetailsView from 'client/views/example-details'
 import {
-  initializeStore as initExampleDetailsViewStore,
-} from 'client/views/example-details/state'
+  initialize as initExampleDetailsViewStore,
+} from 'client/views/example-details/store'
 
 
 /**
@@ -24,11 +24,9 @@ import {
  */
 
 page('/',
-  createRouteHandler(
-    ExampleView, initExampleViewStore))
+  createRouteHandler(ExampleView, initExampleViewStore))
 
 page('/:example',
-  createRouteHandler(
-    ExampleDetailsView, initExampleDetailsViewStore))
+  createRouteHandler(ExampleDetailsView, initExampleDetailsViewStore))
 
 page.start()

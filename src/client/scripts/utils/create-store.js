@@ -4,11 +4,11 @@ import {
   createStore as createReduxStore,
 } from 'redux'
 
-import thunk  from 'redux-thunk'
-import logger from 'redux-logger'
+import logger  from 'redux-logger'
+import promise from 'redux-promise'
 
 const createStoreWithMiddleware =
-  applyMiddleware(thunk, logger())(createReduxStore)
+  applyMiddleware(promise, logger())(createReduxStore)
 
 /**
  * Basically a curried version of 'createStore'.

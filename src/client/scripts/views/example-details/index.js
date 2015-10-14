@@ -1,4 +1,5 @@
 import page                 from 'page'
+import { connect }          from 'react-redux'
 import React, { PropTypes } from 'react'
 
 import {
@@ -6,25 +7,29 @@ import {
   deleteExample,
 } from 'client/views/example-details/actions'
 
-export default React.createClass({
-  propTypes: {
-    state: PropTypes.object.isRequired,
-  },
+const connector = connect(
+  state => ({
+    example: state.example,
+  }),
+  dispatch => ({
+    onFetchExample:  id => dispatch(fetchExample(id)),
+    onDeleteExample: id => dispatch(deleteExample(id)),
+  }))
 
-  contextTypes: {
-    dispatch: PropTypes.func.isRequired,
+export default connector(React.createClass({
+  propTypes: {
+    example:         PropTypes.object.isRequired,
+    onFetchExample:  PropTypes.func.isRequired,
+    onDeleteExample: PropTypes.func.isRequired,
   },
 
   componentDidMount() {
-    this.context.dispatch(fetchExample(this.props.state.route.params.example))
-  },
-
-  shouldComponentUpdate(next) {
-    return next.state.example ? true : !!page('/')
+    this.props.onFetchExample(this.props.example)
   },
 
   deleteExample() {
-    this.context.dispatch(deleteExample())
+    this.props.onDeleteExample(this.props.example)
+      .then(() => page('/'))
   },
 
   render() {
@@ -39,4 +44,4 @@ export default React.createClass({
       </section>
     )
   },
-})
+}))
