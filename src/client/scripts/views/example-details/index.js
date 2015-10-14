@@ -9,6 +9,7 @@ import {
 
 const connector = connect(
   state => ({
+    route:   state.route,
     example: state.example,
   }),
   dispatch => ({
@@ -24,7 +25,7 @@ export default connector(React.createClass({
   },
 
   componentDidMount() {
-    this.props.onFetchExample(this.props.example)
+    this.props.onFetchExample(this.props.route.params.example)
   },
 
   deleteExample() {
